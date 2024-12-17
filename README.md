@@ -2,6 +2,8 @@
 GenAI 101 with Pieces
 # Nature Fun Fact Generator
 
+checkout this - https://raahul24.github.io/fun-nature-facts/
+
 Welcome to the Nature Fun Fact Generator! This simple web application displays random fun facts about nature. It's a great way to learn something new and interesting about the natural world.
 
 ## Features
