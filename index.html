@@ -12,12 +12,14 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f8ff;
+            background-image: url('https://images.app.goo.gl/VaQybVemxuJACs4E8'); /* Add a nature-themed background image */
+            background-size: cover;
+            background-position: center;
         }
 
         .container {
             text-align: center;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -27,6 +29,12 @@
             margin: 20px 0;
             font-size: 1.2em;
             color: #333;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .fact-box.show {
+            opacity: 1;
         }
 
         button {
@@ -42,6 +50,12 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -50,26 +64,137 @@
         <div id="fact" class="fact-box">
             Click the button to see a fun fact!
         </div>
+        <img id="fact-image" src="https://images.app.goo.gl/ug9ZXpVrHcwi6Lsd7" alt="Nature Image">
         <button onclick="generateFact()">Generate Fun Fact</button>
     </div>
     <script>
         const facts = [
-            "Bananas are berries, but strawberries aren't.",
-            "A single teaspoon of honey is the life work of 12 bees.",
-            "Octopuses have three hearts.",
-            "A group of flamingos is called a 'flamboyance'.",
-            "The Amazon rainforest produces 20% of the world's oxygen.",
-            "A snail can sleep for three years.",
-            "The heart of a shrimp is located in its head.",
-            "Elephants are the only animals that can't jump.",
-            "A rhinoceros' horn is made of hair.",
-            "Slugs have four noses."
+            {"fact": "Bananas are berries, but strawberries aren't.", "image": "banana.jpg"},
+            {"fact": "A single teaspoon of honey is the life work of 12 bees.", "image": "honey.jpg"},
+            {"fact": "Octopuses have three hearts.", "image": "octopus.jpg"},
+            {"fact": "A group of flamingos is called a 'flamboyance'.", "image": "flamingo.jpg"},
+            {"fact": "The Amazon rainforest produces 20% of the world's oxygen.", "image": "amazon.jpg"},
+            {"fact": "A snail can sleep for three years.", "image": "snail.jpg"},
+            {"fact": "The heart of a shrimp is located in its head.", "image": "shrimp.jpg"},
+            {"fact": "Elephants are the only animals that can't jump.", "image": "elephant.jpg"},
+            {"fact": "A rhinoceros' horn is made of hair.", "image": "rhinoceros.jpg"},
+            {"fact": "Slugs have four noses.", "image": "slug.jpg"},
+            // Add the remaining 90 facts with images
+    {"fact": "Bananas are berries, but strawberries aren't."},
+    {"fact": "A single teaspoon of honey is the life work of 12 bees."},
+    {"fact": "Octopuses have three hearts."},
+    {"fact": "A group of flamingos is called a 'flamboyance'."},
+    {"fact": "The Amazon rainforest produces 20% of the world's oxygen."},
+    {"fact": "A snail can sleep for three years."},
+    {"fact": "The heart of a shrimp is located in its head."},
+    {"fact": "Elephants are the only animals that can't jump."},
+    {"fact": "A rhinoceros' horn is made of hair."},
+    {"fact": "Slugs have four noses."},
+    {"fact": "The shortest war in history was between Britain and Zanzibar on August 27, 1896. Zanzibar surrendered after 38 minutes."},
+    {"fact": "The world's largest desert is Antarctica."},
+    {"fact": "A day on Venus is longer than a year on Venus."},
+    {"fact": "The honeybee is the only insect that produces food eaten by humans."},
+    {"fact": "A group of crows is called a murder."},
+    {"fact": "The longest recorded flight of a chicken is 13 seconds."},
+    {"fact": "A crocodile cannot stick its tongue out."},
+    {"fact": "Butterflies taste with their feet."},
+    {"fact": "The world's smallest mammal is the bumblebee bat."},
+    {"fact": "A blue whale's heart is the size of a small car."},
+    {"fact": "The only continent without reptiles or snakes is Antarctica."},
+    {"fact": "A tarantula can live without food for more than two years."},
+    {"fact": "The world's largest flower is the Rafflesia arnoldii, which can grow up to 3 feet across."},
+    {"fact": "A group of jellyfish is called a smack."},
+    {"fact": "The fingerprints of a koala are so indistinguishable from humans that they have on occasion been confused at a crime scene."},
+    {"fact": "A newborn kangaroo is the size of a lima bean."},
+    {"fact": "The only bird that can fly backwards is the hummingbird."},
+    {"fact": "A group of owls is called a parliament."},
+    {"fact": "The world's largest living structure is the Great Barrier Reef."},
+    {"fact": "A chameleon's tongue is twice the length of its body."},
+    {"fact": "The world's oldest known living tree is a bristlecone pine in California, estimated to be over 5,000 years old."},
+    {"fact": "A group of porcupines is called a prickle."},
+    {"fact": "The world's largest amphibian is the Chinese giant salamander, which can grow up to 6 feet long."},
+    {"fact": "A group of frogs is called an army."},
+    {"fact": "The world's largest rodent is the capybara, which can weigh up to 150 pounds."},
+    {"fact": "A group of giraffes is called a tower."},
+    {"fact": "The world's largest land carnivore is the polar bear."},
+    {"fact": "A group of whales is called a pod."},
+    {"fact": "The world's largest fish is the whale shark, which can grow up to 40 feet long."},
+    {"fact": "A group of lions is called a pride."},
+    {"fact": "The world's largest bird is the ostrich, which can weigh up to 350 pounds."},
+    {"fact": "A group of geese is called a gaggle."},
+    {"fact": "The world's largest reptile is the saltwater crocodile, which can grow up to 23 feet long."},
+    {"fact": "A group of bats is called a cauldron."},
+    {"fact": "The world's largest invertebrate is the colossal squid, which can grow up to 46 feet long."},
+    {"fact": "A group of wolves is called a pack."},
+    {"fact": "The world's largest butterfly is the Queen Alexandra's birdwing, which can have a wingspan of up to 12 inches."},
+    {"fact": "A group of kangaroos is called a mob."},
+    {"fact": "The world's largest land animal is the African elephant."},
+    {"fact": "A group of dolphins is called a pod."},
+    {"fact": "The world's largest primate is the eastern gorilla."},
+    {"fact": "A group of horses is called a team."},
+    {"fact": "The world's largest marsupial is the red kangaroo."},
+    {"fact": "A group of fish is called a school."},
+    {"fact": "The world's largest cat is the Siberian tiger."},
+    {"fact": "A group of bees is called a swarm."},
+    {"fact": "The world's largest snake is the reticulated python, which can grow up to 30 feet long."},
+    {"fact": "A group of elephants is called a herd."},
+    {"fact": "The world's largest lizard is the Komodo dragon."},
+    {"fact": "A group of penguins is called a colony."},
+    {"fact": "The world's largest turtle is the leatherback sea turtle."},
+    {"fact": "A group of flamingos is called a flamboyance."},
+    {"fact": "The world's largest bat is the giant golden-crowned flying fox."},
+    {"fact": "A group of parrots is called a pandemonium."},
+    {"fact": "The world's largest frog is the Goliath frog."},
+    {"fact": "A group of peacocks is called an ostentation."},
+    {"fact": "The world's largest antelope is the giant eland."},
+    {"fact": "A group of turkeys is called a rafter."},
+    {"fact": "The world's largest deer is the moose."},
+    {"fact": "A group of quail is called a covey."},
+    {"fact": "The world's largest monkey is the mandrill."},
+    {"fact": "A group of swans is called a bevy."},
+    {"fact": "The world's largest penguin is the emperor penguin."},
+    {"fact": "A group of tigers is called an ambush."},
+    {"fact": "The world's largest seal is the southern elephant seal."},
+    {"fact": "A group of zebras is called a dazzle."},
+    {"fact": "The world's largest bony fish is the ocean sunfish."},
+    {"fact": "A group of rabbits is called a fluffle."},
+    {"fact": "The world's largest land bird is the kori bustard."},
+    {"fact": "A group of ferrets is called a business."},
+    {"fact": "The world's largest freshwater fish is the beluga sturgeon."},
+    {"fact": "A group of cats is called a clowder."},
+    {"fact": "The world's largest venomous snake is the king cobra."},
+    {"fact": "A group of dogs is called a pack."},
+    {"fact": "The world's largest bird of prey is the Andean condor."},
+    {"fact": "A group of goats is called a trip."},
+    {"fact": "The world's largest owl is the Blakiston's fish owl."},
+    {"fact": "A group of pigs is called a sounder."},
+    {"fact": "The world's largest eagle is the harpy eagle."},
+    {"fact": "A group of cows is called a herd."},
+    {"fact": "The world's largest hawk is the ferruginous hawk."},
+    {"fact": "A group of sheep is called a flock."},
+    {"fact": "The world's largest falcon is the gyrfalcon."},
+    {"fact": "A group of chickens is called a brood."},
+    {"fact": "The world's largest vulture is the cinereous vulture."},
+    {"fact": "A group of ducks is called a raft."},
+    {"fact": "The world's largest parrot is the hyacinth macaw."},
+    {"fact": "A group of swallows is called a flight."},
+    {"fact": "The world's largest woodpecker is the imperial woodpecker."},
+    {"fact": "A group of sparrows is called a host."},
+    {"fact": "The world's largest hummingbird is the giant hummingbird."},
+    {"fact": "A group of starlings is called a murmuration."}
+
         ];
 
         function generateFact() {
             const randomIndex = Math.floor(Math.random() * facts.length);
             const factElement = document.getElementById('fact');
-            factElement.textContent = facts[randomIndex];
+            const imageElement = document.getElementById('fact-image');
+            factElement.classList.remove('show');
+            setTimeout(() => {
+                factElement.textContent = facts[randomIndex].fact;
+                imageElement.src = facts[randomIndex].image;
+                factElement.classList.add('show');
+            }, 100);
         }
     </script>
 </body>
